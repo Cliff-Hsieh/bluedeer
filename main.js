@@ -1,19 +1,13 @@
-var http = require('http');
+var express = require('express');
 var fs = require('fs');
+var app = express();
 
-function onRequest (req, res) {
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  fs.readFile('./index.html', null, function(error, data){
-    if(error){
-      res.writeHead(404);
-      res.write('File not found!');
-    }else{
-      res.write(data);
-    }
-    res.end();
-  });
-}
+app.set('view engine', 'ejs');
 
-http.createServer(onRequest).listen(1337);
+app.get('/', function(req, res){
+  res.render('index');
+});
+
+app.listen(1337);
 
 console.log('Server running at http://127.0.0.1:1337/');
